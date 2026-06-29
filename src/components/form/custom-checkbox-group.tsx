@@ -1,17 +1,17 @@
 import React from 'react';
-import { Form, Switch } from 'antd';
+import { Form, Checkbox } from 'antd';
 
-type SwitchProps = React.ComponentProps<typeof Switch>;
+type CheckboxGroupProps = React.ComponentProps<typeof Checkbox.Group>;
 
-interface CustomSwitchProps extends SwitchProps {
+interface CustomCheckboxGroupProps extends Omit<CheckboxGroupProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomSwitch: React.FC<CustomSwitchProps> = ({
+export const CustomCheckboxGroup: React.FC<CustomCheckboxGroupProps> = ({
   label,
   name,
   required,
@@ -26,8 +26,7 @@ export const CustomSwitch: React.FC<CustomSwitchProps> = ({
     <Form.Item
       label={label}
       name={name}
-      valuePropName="checked"
-      rules={[{ required, message: `Vui lòng bật ${label.toLowerCase()}` }]}
+      rules={[{ required, message: `Vui lòng chọn ít nhất một ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
@@ -45,7 +44,7 @@ export const CustomSwitch: React.FC<CustomSwitchProps> = ({
         }
       } : undefined}
     >
-      <Switch size="small" {...rest} />
+      <Checkbox.Group {...rest} />
     </Form.Item>
   );
 };

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Form, Radio } from 'antd';
+import { Form, Switch } from 'antd';
 
-type RadioGroupProps = React.ComponentProps<typeof Radio.Group>;
+type SwitchProps = React.ComponentProps<typeof Switch>;
 
-interface CustomRadioGroupProps extends RadioGroupProps {
+interface CustomSwitchProps extends Omit<SwitchProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
+export const CustomSwitch: React.FC<CustomSwitchProps> = ({
   label,
   name,
   required,
@@ -26,7 +26,8 @@ export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng chọn ${label.toLowerCase()}` }]}
+      valuePropName="checked"
+      rules={[{ required, message: `Vui lòng bật ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
@@ -44,7 +45,7 @@ export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
         }
       } : undefined}
     >
-      <Radio.Group size="small" {...rest} />
+      <Switch size="small" {...rest} />
     </Form.Item>
   );
 };

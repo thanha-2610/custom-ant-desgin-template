@@ -4,9 +4,9 @@ import { Form, DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 type RangePickerProps = React.ComponentProps<typeof RangePicker>;
 
-interface CustomDateRangePickerProps extends RangePickerProps {
+interface CustomDateRangePickerProps extends Omit<RangePickerProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
@@ -40,7 +40,7 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
           whiteSpace: 'nowrap'
         }
       } : undefined}
-      wrapperCol={isHorizontal ? {
+      wrapperCol={isHorizontal ? { 
         style: {
           flex: '1 1 auto'
         }

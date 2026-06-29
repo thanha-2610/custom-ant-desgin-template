@@ -1,22 +1,23 @@
 import React from 'react';
-import { Form, Checkbox } from 'antd';
+import { Form, DatePicker } from 'antd';
 
-type CheckboxGroupProps = React.ComponentProps<typeof Checkbox.Group>;
+type DatePickerProps = React.ComponentProps<typeof DatePicker>;
 
-interface CustomCheckboxGroupProps extends CheckboxGroupProps {
+interface CustomDatePickerProps extends Omit<DatePickerProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomCheckboxGroup: React.FC<CustomCheckboxGroupProps> = ({
+export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   label,
   name,
   required,
   labelWidth = 100,
   layout = 'horizontal',
+  style,
   ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -26,14 +27,14 @@ export const CustomCheckboxGroup: React.FC<CustomCheckboxGroupProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng chọn ít nhất một ${label.toLowerCase()}` }]}
+      rules={[{ required, message: `Vui lòng chọn ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
           width: widthStyle,
           flex: `0 0 ${widthStyle}`,
           maxWidth: widthStyle,
-          textAlign: 'right',
+          textAlign: 'left',
           paddingRight: '8px',
           whiteSpace: 'nowrap'
         }
@@ -44,7 +45,7 @@ export const CustomCheckboxGroup: React.FC<CustomCheckboxGroupProps> = ({
         }
       } : undefined}
     >
-      <Checkbox.Group {...rest} />
+      <DatePicker size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
     </Form.Item>
   );
 };

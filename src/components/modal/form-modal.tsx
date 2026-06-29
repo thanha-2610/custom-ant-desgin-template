@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
-import { BaseModal } from './BaseModal';
-import type { BaseModalProps } from './BaseModal';
+import { BaseModal } from './base-modal';
+import type { BaseModalProps } from './base-modal';
 
 interface FormModalProps extends Omit<BaseModalProps, 'onOk'> {
   form: FormInstance;

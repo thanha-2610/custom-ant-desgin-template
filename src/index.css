@@ -49,18 +49,7 @@
     filter: invert(1) brightness(2);
   }
 }
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+ 
 
 body {
   margin: 0;
@@ -124,7 +113,7 @@ code {
 
 .custom-horizontal-item .ant-form-item-label {
   display: flex !important;
-  justify-content: flex-end !important;
+  justify-content: flex-start !important;
   /* align-items: center !important; */
   padding: 0 !important;
 }
@@ -157,4 +146,65 @@ code {
 /* Custom Modal Padding Override */
 .ant-modal .ant-modal-content {
   padding: 16px !important;
+}
+
+/* Bold Menu Items */
+.ant-menu-item,
+.ant-menu-submenu-title {
+  font-weight: bold !important;
+}
+
+/* Custom Light Top Menu styling for Dark Blue Header */
+.top-menu-custom.ant-menu-horizontal {
+  background: transparent !important;
+  border-bottom: none !important;
+  line-height: 36px !important;
+  height: 36px !important;
+}
+
+.top-menu-custom.ant-menu-horizontal .ant-menu-item,
+.top-menu-custom.ant-menu-horizontal .ant-menu-submenu-title {
+  color: rgba(255, 255, 255, 0.85) !important;
+  height: 36px !important;
+  /* line-height: 36px !important; */
+  display: flex !important;
+  align-items: center !important;
+}
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item:hover,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu:hover,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-active,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-active,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-open,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-open,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-selected,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-selected {
+  color: #ffffff !important;
+  height: 36px !important;
+  background-color: #0A5DBA !important;
+}
+
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item:hover *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu:hover *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-active *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-active *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-open *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-open *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-item-selected *,
+.top-menu-custom.ant-menu-horizontal > .ant-menu-submenu-selected * {
+  color: #ffffff !important;
+}
+
+.top-menu-custom.ant-menu-horizontal .ant-menu-item::after,
+.top-menu-custom.ant-menu-horizontal .ant-menu-submenu::after {
+  display: none !important;
+}
+
+/* Ép font-weight: 700 cho chữ của Tab đang được chọn (Dạng Card) */
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 700 !important;
+}
+
+/* Nếu bạn dùng cả dạng Line mặc định thì thêm dòng này */
+.ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 700 !important;
 }

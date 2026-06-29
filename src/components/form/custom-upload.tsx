@@ -3,9 +3,9 @@ import { Form, Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 
-interface CustomUploadProps extends Omit<UploadProps, 'fileList'> {
+interface CustomUploadProps extends Omit<UploadProps, 'fileList' | 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   maxSizeMB?: number;
   allowedExts?: string[];

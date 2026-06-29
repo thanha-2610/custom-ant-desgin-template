@@ -1,25 +1,22 @@
 import React from 'react';
-import { Form, Select } from 'antd';
+import { Form, Radio } from 'antd';
 
-type SelectProps = React.ComponentProps<typeof Select>;
+type RadioGroupProps = React.ComponentProps<typeof Radio.Group>;
 
-interface CustomSelectProps extends SelectProps {
+interface CustomRadioGroupProps extends Omit<RadioGroupProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
-  inputWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomSelect: React.FC<CustomSelectProps> = ({
+export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
   label,
   name,
   required,
   labelWidth = 100,
   layout = 'horizontal',
-  inputWidth = 192,
-  style,
   ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -47,7 +44,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         }
       } : undefined}
     >
-      <Select size="small" allowClear style={{ width: inputWidth }} {...rest} />
+      <Radio.Group size="small" {...rest} />
     </Form.Item>
   );
 };

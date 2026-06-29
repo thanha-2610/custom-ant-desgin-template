@@ -1,25 +1,25 @@
 import React from 'react';
-import { Form, Input } from 'antd';
-import type { InputProps } from 'antd';
+import { Form, AutoComplete } from 'antd';
+import type { AutoCompleteProps } from 'antd';
 
-interface CustomInputProps extends InputProps {
+interface CustomAutoCompleteProps extends Omit<AutoCompleteProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
-  layout?: 'horizontal' | 'vertical';
   inputWidth?: number | string;
+  layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomInput: React.FC<CustomInputProps> = ({ 
-  label, 
-  name, 
-  required, 
+export const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
+  label,
+  name,
+  required,
   labelWidth = 100,
   layout = 'horizontal',
-  style,
   inputWidth = 192,
-  ...rest 
+  style,
+  ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
   const widthStyle = typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth;
@@ -28,11 +28,11 @@ export const CustomInput: React.FC<CustomInputProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
+      rules={[{ required, message: `Vui lòng nhập hoặc chọn ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
-        style: { 
-          width: widthStyle, 
+        style: {
+          width: widthStyle,
           flex: `0 0 ${widthStyle}`,
           maxWidth: widthStyle,
           textAlign: 'right',
@@ -40,14 +40,13 @@ export const CustomInput: React.FC<CustomInputProps> = ({
           whiteSpace: 'nowrap'
         }
       } : undefined}
-      
       wrapperCol={isHorizontal ? {
-        style: { 
+        style: {
           flex: '1 1 auto'
         }
       } : undefined}
     >
-      <Input style={{ width: inputWidth }} size="small" allowClear {...rest} />
+      <AutoComplete size="small" allowClear style={{ width: inputWidth }} {...rest} />
     </Form.Item>
   );
 };

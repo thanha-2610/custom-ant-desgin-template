@@ -1,29 +1,25 @@
-// src/components/Form/CustomTextArea.tsx
 import React from 'react';
 import { Form, Input } from 'antd';
-import type { TextAreaProps } from 'antd/es/input';
+import type { InputProps } from 'antd';
 
-const { TextArea } = Input;
-
-interface CustomTextAreaProps extends TextAreaProps {
+interface CustomInputProps extends Omit<InputProps, 'name'> {
   label: string;
-  name: string;
-  maxContent?: number;
-  layout?: 'horizontal' | 'vertical';
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
+  layout?: 'horizontal' | 'vertical';
   inputWidth?: number | string;
 }
 
-export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
-  label,
-  name,
-  required,
-  layout = 'horizontal',
+export const CustomInput: React.FC<CustomInputProps> = ({ 
+  label, 
+  name, 
+  required, 
   labelWidth = 100,
-  maxContent = 500,
+  layout = 'horizontal',
+  style,
   inputWidth = 192,
-  ...rest
+  ...rest 
 }) => {
   const isHorizontal = layout === 'horizontal';
   const widthStyle = typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth;
@@ -44,18 +40,14 @@ export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
           whiteSpace: 'nowrap'
         }
       } : undefined}
+      
+      wrapperCol={isHorizontal ? {
+        style: { 
+          flex: '1 1 auto'
+        }
+      } : undefined}
     >
-      <TextArea
-        size="small"
-        allowClear
-        autoSize={{ minRows: 2, maxRows: 5 }} 
-        showCount
-        maxLength={maxContent}
-        style={{ fontSize: 11, width: inputWidth }} 
-        {...rest}
-      />
+      <Input style={{ width: inputWidth }} size="small" allowClear {...rest} />
     </Form.Item>
   );
 };
-
-

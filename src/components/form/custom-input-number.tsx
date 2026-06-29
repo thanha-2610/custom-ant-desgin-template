@@ -1,22 +1,24 @@
 import React from 'react';
-import { Form, DatePicker } from 'antd';
+import { Form, InputNumber } from 'antd';
 
-type DatePickerProps = React.ComponentProps<typeof DatePicker>;
+type InputNumberProps = React.ComponentProps<typeof InputNumber>;
 
-interface CustomDatePickerProps extends DatePickerProps {
+interface CustomInputNumberProps extends Omit<InputNumberProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
+  inputWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   label,
   name,
   required,
   labelWidth = 100,
   layout = 'horizontal',
+  inputWidth = 192,
   style,
   ...rest
 }) => {
@@ -27,14 +29,13 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng chọn ${label.toLowerCase()}` }]}
+      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
           width: widthStyle,
           flex: `0 0 ${widthStyle}`,
-          maxWidth: widthStyle,
-          textAlign: 'right',
+          maxWidth: widthStyle, 
           paddingRight: '8px',
           whiteSpace: 'nowrap'
         }
@@ -45,7 +46,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         }
       } : undefined}
     >
-      <DatePicker size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
+      <InputNumber size="small" style={{ width: inputWidth }} {...rest} />
     </Form.Item>
   );
 };

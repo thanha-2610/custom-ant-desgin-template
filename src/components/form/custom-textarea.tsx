@@ -1,25 +1,28 @@
+// src/components/Form/CustomTextArea.tsx
 import React from 'react';
-import { Form, InputNumber } from 'antd';
+import { Form, Input } from 'antd';
+import type { TextAreaProps } from 'antd/es/input';
 
-type InputNumberProps = React.ComponentProps<typeof InputNumber>;
+const { TextArea } = Input;
 
-interface CustomInputNumberProps extends InputNumberProps {
+interface CustomTextAreaProps extends Omit<TextAreaProps, 'name'> {
   label: string;
-  name: string;
+  name?: string | number | (string | number)[];
+  maxContent?: number;
+  layout?: 'horizontal' | 'vertical';
   required?: boolean;
   labelWidth?: number | string;
   inputWidth?: number | string;
-  layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
+export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
   label,
   name,
   required,
-  labelWidth = 100,
   layout = 'horizontal',
+  labelWidth = 100,
+  maxContent = 6,
   inputWidth = 192,
-  style,
   ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -32,8 +35,8 @@ export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
       rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
-        style: {
-          width: widthStyle,
+        style: { 
+          width: widthStyle, 
           flex: `0 0 ${widthStyle}`,
           maxWidth: widthStyle,
           textAlign: 'right',
@@ -41,13 +44,18 @@ export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
           whiteSpace: 'nowrap'
         }
       } : undefined}
-      wrapperCol={isHorizontal ? {
-        style: {
-          flex: '1 1 auto'
-        }
-      } : undefined}
     >
-      <InputNumber size="small" style={{ width: inputWidth }} {...rest} />
+      <TextArea
+        size="small"
+        allowClear
+        rows={1}
+        showCount
+        maxLength={maxContent}
+        style={{ fontSize: 11, width: inputWidth }} 
+        {...rest}
+      />
     </Form.Item>
   );
 };
+
+
