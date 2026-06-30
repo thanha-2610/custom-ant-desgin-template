@@ -9,6 +9,7 @@ interface CustomDatePickerProps extends Omit<DatePickerProps, 'name'> {
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
+  format?: string;
 }
 
 export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
@@ -17,6 +18,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   required,
   labelWidth = 100,
   layout = 'horizontal',
+  format = 'DD-MM-YYYY',
   style,
   ...rest
 }) => {
@@ -45,7 +47,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         }
       } : undefined}
     >
-      <DatePicker size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
+      <DatePicker format={format} size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
     </Form.Item>
   );
 };

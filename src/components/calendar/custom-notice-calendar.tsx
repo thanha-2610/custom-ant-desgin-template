@@ -7,11 +7,11 @@ import 'dayjs/locale/vi';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import viVN from 'antd/es/locale/vi_VN';
 
-// Cấu hình locale tiếng Việt cho Day.js với các ngày viết đầy đủ theo yêu cầu
 dayjs.extend(updateLocale);
 dayjs.locale('vi');
 dayjs.updateLocale('vi', {
-  weekdaysMin: ['chủ nhật', 'thứ hai', 'thứ ba', 'thứ tư', 'thứ năm', 'thứ sáu', 'thứ bảy']
+  weekdaysShort: ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'],
+  weekdaysMin: ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy']
 });
  
 export interface CalendarEvent {
@@ -38,7 +38,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
 }) => {
   
   const dateCellRender = (value: Dayjs) => {
-    const stringDate = value.format('YYYY-MM-DD');
+    const stringDate = value.format('DD-MM-YYYY');
     const listData = events.filter(event => event.date === stringDate);
 
     return (

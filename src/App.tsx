@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ConfigProvider, Form, Button, Typography, Space, App as AntdApp, Row, Col, Switch } from 'antd';
- import type { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { ultraCompactWinformTheme } from './theme/themeConfig';  
   
 // Form import
@@ -29,8 +28,22 @@ import { CustomTabs } from './components/tab/custom-tab';
 import { CustomTransfer } from './components/form/custom-transfer';
 import { CustomAutoComplete } from './components/form/custom-auto-complete';
 import { CustomFormRepeater } from './components/form/custom-form-repeater';
-import { CustomCalendar, type CalendarEvent } from './components/calendar/custom-notice-calendar';
+import { CustomCalendar } from './components/calendar/custom-notice-calendar';
 import { CustomMiniCalendar } from './components/calendar/custom-card-calendar';
+
+// Import data
+import {
+  topMenuItems,
+  sideMenuItems,
+  breadcrumbs,
+  selectOptions,
+  cityOptions,
+  genderOptions,
+  hobbyOptions,
+  permissionOptions,
+  myEvents,
+  myMonthNotes,
+} from './yummy_data';
 
 const { Title } = Typography;
 
@@ -38,70 +51,10 @@ const AppContent: React.FC = () => {
   const [form] = Form.useForm();
   const [modalForm] = Form.useForm();
   
-  const topMenuItems = [
-    {
-      key: '1',
-      label: 'Hệ thống',
-      children: [
-        { key: '1.1', label: 'Cấu hình kí số' },
-        { key: '1.2', label: 'Danh mục', children: [
-          { key: '1.2.1', label: 'Nghề nghiệp' },
-          { key: '1.2.2', label: 'Nhóm máu' },
-          { key: '1.2.3', label: 'Phân loại thể lực' },
-          { key: '1.2.4', label: 'Răng - Hàm - Mặt' },
-          { key: '1.2.5', label: 'Chỉ số xét nghiệm' },
-        ] },
-        {
-         key: '1.3', label: 'Phân quyền',
-         children: [
-          { key: '1.3.1', label: 'Quản lý đơn vị' },
-          { key: '1.3.2', label: 'Quản lý đợt khám' },
-          { key: '1.3.3', label: 'Quản lý bệnh nhân' },
-         ]
-        }, 
-        { key: '1.4', label: 'Import dữ liệu' }, 
-        { key: '1.5', label: 'Xuất dữ liệu liên thông' },  
-        { key: '1.6', label: 'Cấu hình kí số' },  
-      ],
-    },
-    {
-      key: '2',
-      label: 'Nghiệp vụ',
-       children: [
-        { key: '2.1', label: 'Khám sức khỏe' },]
-    },
-    {
-      key: '3',
-      label: 'Trợ giúp',
-    },
-  ];
 
-  // 2. Dữ liệu Menu dọc
-  const sideMenuItems = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-    const key = String(index + 1);
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `Danh mục ${key}`,
-      children: Array.from({ length: 3 }).map((_, j) => {
-        const subKey = index * 3 + j + 1;
-        return {
-          key: subKey,
-          label: `Màn hình ${subKey}`,
-        };
-      }),
-    };
-  });
-
-  // 3. Đường dẫn Breadcrumb
-  const breadcrumbs = [
-    { title: 'Trang chủ' },
-    { title: 'Danh mục 1' },
-    { title: 'Màn hình 1' }
-  ];
 
   // Register context-aware modal instance
-  const { modal } = AntdApp.useApp();
+  const { modal, message } = AntdApp.useApp();
   useEffect(() => {
     setStaticModal(modal);
   }, [modal]);
@@ -122,36 +75,14 @@ const AppContent: React.FC = () => {
     modalForm.resetFields();
   };
 
-  const selectOptions = [
-    { value: 'active', label: 'Hoạt động' },
-    { value: 'inactive', label: 'Ngừng hoạt động' },
-  ];
 
-  const myEvents: CalendarEvent[] = [
-    { date: '2026-06-08', type: 'warning', content: 'Họp giao ban' },
-    { date: '2026-06-08', type: 'success', content: 'Gặp khách hàng' },
-    { date: '2026-06-10', type: 'error', content: 'Deadline dự án A' },
-    { date: '2026-06-15', type: 'processing', content: 'Sự kiện công ty' },
-  ];
-
-  const myMonthNotes = [
-    { 
-      month: '2026-06', 
-      content: (
-        <>
-          <section style={{ fontWeight: 'bold', color: '#1890ff' }}>1394</section>
-          <span style={{ fontSize: 12 }}>Backlog number</span>
-        </>
-      ) 
-    }
-  ];
 
   const handlePanelChange = (value: Dayjs, mode: string) => {
-    console.log('Tháng/Năm thay đổi:', value.format('YYYY-MM-DD'), 'Chế độ:', mode);
+    console.log('Tháng/Năm thay đổi:', value.format('DD-MM-YYYY'), 'Chế độ:', mode);
   };
 
   const handleSelect = (date: Dayjs) => {
-    console.log('Bạn vừa click vào ngày:', date.format('YYYY-MM-DD'));
+    console.log('Bạn vừa click vào ngày:', date.format('DD-MM-YYYY'));
   };
 
   return (
@@ -171,196 +102,200 @@ const AppContent: React.FC = () => {
     >
       
      <div style={{  textAlign: 'left' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <Title level={3} style={{ margin: 0 }}>Test Bộ UI Component (Form)</Title>
-          <Space align="center" style={{ background: '#f5f5f5', padding: '4px 12px', borderRadius: 4, border: '1px solid #d9d9d9' }}>
-            <span style={{ fontSize: 12, fontWeight: 500 }}>Disable toàn bộ Form:</span>
-            <Switch checked={formDisabled} onChange={setFormDisabled} size="small" />
-          </Space>
-        </div>
-         
+        <Space align="center" style={{ background: '#f5f5f5', padding: '4px 8px', borderRadius: 4, border: '1px solid #d9d9d9', marginBottom: 8 }}>
+          <span style={{ fontSize: 12, fontWeight: 500,  }}>Disable toàn bộ Form:</span>
+          <Switch checked={formDisabled} onChange={setFormDisabled} size="small" />
+        </Space>
+        
         <CustomTabs
+          size='small'
           items={[
             {
               key: '1',
               label: 'Thông tin nhân viên',
               children: (
-                <Form 
-                  form={form} 
-                  layout="vertical" 
-                  labelAlign="left" 
-                  onFinish={handleFinish} 
-                  disabled={formDisabled}
-                > 
-                  {/* Đã thêm justify="start" để dồn lưới về bên trái */}
-                  <Row gutter={[4, 4]} justify="start">
-                    <Col span={6}>
-                      <CustomInput 
-                        label="Mã nhân viên" 
-                        name="empCode" 
-                        required 
-                        style={{ width: '100%' }}
-                      /> 
-                    </Col>
-                    
-                    <Col span={6}>
-                      <CustomAutoComplete
-                        label="Tìm kiếm"
-                        name="searchCity"
-                        options={[
-                          { value: 'Hà Nội' },
-                          { value: 'TP. Hồ Chí Minh' },
-                          { value: 'Đà Nẵng' },
-                          { value: 'Hải Phòng' },
-                          { value: 'Cần Thơ' },
-                        ]}
-                        placeholder="Nhập tỉnh/thành..."
-                      />
-                    </Col>
+               <>
+                  <Form 
+                    form={form} 
+                    layout="vertical" 
+                    labelAlign="left" 
+                    onFinish={handleFinish} 
+                    disabled={formDisabled}
+                  > 
+                    <Row gutter={[2, 2]} justify="start">
+                      <Col span={6}>
+                        <CustomInput 
+                          label="Mã nhân viên" 
+                          name="empCode" 
+                          required 
+                          style={{ width: '100%' }} 
+                        /> 
+                      </Col>
+                      <Col span={6}>
+                        <CustomInput 
+                          label="Mã nhân viên" 
+                          name="empCode" 
+                          required 
+                          style={{ width: '100%' }}
+                          prefix="￥" suffix="RMB" 
+                        /> 
+                      </Col>
+                      
+                      <Col span={6}>
+                        <CustomAutoComplete
+                          label="Tìm kiếm"
+                          name="searchCity"
+                          options={cityOptions}
+                          placeholder="Nhập tỉnh/thành..."
+                        />
+                      </Col>
+  
+                      <Col span={6}>
+                        <CustomInputNumber
+                          label="Tuổi"
+                          name="age"
+                          required
+                          type='number'
+                          style={{ width: '100%' }}
+                        />
+                      </Col>
+                      
+                      <Col span={6}>
+                        <CustomSelect
+                          label="Trạng thái"
+                          name="status"
+                          required
+                          options={selectOptions}
+                          style={{ width: '100%' }}
+                        />
+                      </Col>
+  
+                      <Col span={6}>
+                        <CustomDatePicker
+                          label="Ngày sinh"
+                          name="birthday"
+                          required
+                          style={{ width: '100%' }}
+                        />
+                      </Col>
+                      
+                      <Col span={6}>
+                        <CustomDateRangePicker
+                          label="Thời gian làm"
+                          name="workPeriod"
+                          required
+                          style={{ width: '100%' }}
+                        />
+                      </Col>
+           
+                      <Col span={12}>
+                        <CustomTextArea
+                          label="Ghi chú nghiệp vụ Ghi chú nghiệp vụ" 
+                          name="notes" 
+                          inputWidth={"100%"}
+                          maxLength={1000} 
+                        />
+                      </Col> 
+                      <Col span={6}>
+                        <CustomRadioGroup
+                          label="Giới tính"
+                          name="gender"
+                          required
+                          options={genderOptions}
+                        />
+                      </Col>
+                      
+                      <Col span={6}>
+                        <CustomCheckboxGroup
+                          label="Sở thích"
+                          name="hobbies"
+                          options={hobbyOptions}
+                        />
+                      </Col>
+  
+                      <Col span={6}>
+                        <CustomSwitch
+                          label="Kích hoạt"
+                          name="isActive"
+                        />
+                      </Col>
+                      
+                      <Col span={6}>
+                        <CustomUpload 
+                          label="Hợp đồng" 
+                          name="contractFile" 
+                          required 
+                          maxSizeMB={2}
+                          allowedExts={['.pdf', '.docx']}
+                          btnText="Browse..."
+                        />
+                      </Col>
+                       
+                       
+                      <Col span={18} style={{ marginTop: 12 }}>
+                        <Title level={3} style={{ marginBottom: 8, }}>
+                          Lịch sử công tác (Danh sách)
+                        </Title>
 
-                    <Col span={6}>
-                      <CustomInputNumber
-                        label="Tuổi"
-                        name="age"
-                        required
-                        type='number'
-                        style={{ width: '100%' }}
-                      />
-                    </Col>
-                    
-                    <Col span={6}>
-                      <CustomSelect
-                        label="Trạng thái"
-                        name="status"
-                        required
-                        options={selectOptions}
-                        style={{ width: '100%' }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <CustomDatePicker
-                        label="Ngày sinh"
-                        name="birthday"
-                        required
-                        style={{ width: '100%' }}
-                      />
-                    </Col>
-                    
-                    <Col span={6}>
-                      <CustomDateRangePicker
-                        label="Thời gian làm"
-                        name="workPeriod"
-                        required
-                        style={{ width: '100%' }}
-                      />
-                    </Col>
-         
-                    <Col span={12}>
-                      <CustomTextArea
-                        label="Ghi chú nghiệp vụ Ghi chú nghiệp vụ" 
-                        name="notes" 
-                        inputWidth={"100%"}
-                        maxLength={1000} 
-                      />
-                    </Col> 
-                    <Col span={6}>
-                      <CustomRadioGroup
-                        label="Giới tính"
-                        name="gender"
-                        required
-                        options={[
-                          { label: 'Nam', value: 'male' },
-                          { label: 'Nữ', value: 'female' },
-                        ]}
-                      />
-                    </Col>
-                    
-                    <Col span={6}>
-                      <CustomCheckboxGroup
-                        label="Sở thích"
-                        name="hobbies"
-                        options={[
-                          { label: 'Thể thao', value: 'sports' }, 
-                          { label: 'Âm nhạc', value: 'music' },
-                        ]}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <CustomSwitch
-                        label="Kích hoạt"
-                        name="isActive"
-                      />
-                    </Col>
-                    
-                    <Col span={6}>
-                      <CustomUpload 
-                        label="Hợp đồng" 
-                        name="contractFile" 
-                        required 
-                        maxSizeMB={2}
-                        allowedExts={['.pdf', '.docx']}
-                        btnText="Browse..."
-                      />
-                    </Col>
-                     
-                     
-                    <Col span={18} style={{ marginTop: 12 }}>
-                      <div style={{ marginBottom: 8, fontWeight: 'bold', fontSize: 13, }}>
-                        Lịch sử công tác (Danh sách)
-                      </div>
-                      <CustomFormRepeater
-                        name="workHistory"
-                        itemTitle="Kinh nghiệm"
-                        addText="Thêm kinh nghiệm làm việc"
-                        variant="card"
-                      >
-                        {(field) => (
-                          <Row gutter={[4, 4]}>
-                            <Col span={12}>
-                              <CustomInput
-                                label="Công ty"
-                                name={[field.name, 'company']}
-                                required
-                                style={{ width: '100%' }}
-                              />
-                            </Col>
-                            <Col span={12}>
-                              <CustomInput
-                                label="Chức vụ"
-                                name={[field.name, 'position']}
-                                required
-                                style={{ width: '100%' }}
-                              />
-                            </Col>
-                          </Row>
-                        )}
-                      </CustomFormRepeater>
-                    </Col>
-                  </Row>
-
-                  {/* Đã thêm textAlign: 'left' vào Form.Item và justify="start" vào Space */}
-                  <Form.Item style={{ marginTop: 16, marginBottom: 0, textAlign: 'left' }}>
-                    <Space wrap style={{ width: '100%', justifyContent: 'flex-start' }}>
-                      <Button type="primary" htmlType="submit" size='small' disabled={formDisabled}>
-                        Lưu Dữ Liệu
-                      </Button>
-                      <Button type="primary" danger size="small" disabled={formDisabled}>
-                        Hủy Bỏ
-                      </Button>
-                      <Button type="dashed" size='small' disabled={formDisabled}>
-                        Thêm Mới
-                      </Button>
-                      <Button type="text" size='small' disabled={formDisabled}>
-                        Chi tiết
-                      </Button>
-                      <Button type="link" size='small' disabled={formDisabled}>
-                        Đọc thêm
-                      </Button>
-                    </Space>
-                  </Form.Item>
-                </Form>
+                         
+                        <CustomFormRepeater
+                          name="workHistory"
+                          itemTitle="Kinh nghiệm"
+                          addText="Thêm kinh nghiệm làm việc"
+                          variant="card"
+                        >
+                          {(field) => (
+                            <Row gutter={[4, 4]}>
+                              <Col span={12}>
+                                <CustomInput
+                                  label="Công ty"
+                                  name={[field.name, 'company']}
+                                  required
+                                  style={{ width: '100%' }}
+                                />
+                              </Col>
+                              <Col span={12}>
+                                <CustomInput
+                                  label="Chức vụ"
+                                  name={[field.name, 'position']}
+                                  required
+                                  style={{ width: '100%' }}
+                                />
+                              </Col>
+                            </Row>
+                          )}
+                        </CustomFormRepeater>
+                      </Col>
+                    </Row>
+  
+                    {/* Đã thêm textAlign: 'left' vào Form.Item và justify="start" vào Space */}
+                    <Form.Item style={{ marginTop: 16, marginBottom: 0, textAlign: 'left' }}>
+                      <Space wrap style={{ width: '100%', justifyContent: 'flex-start' }}>
+                        <Button type="primary" htmlType="submit" size='small' disabled={formDisabled}>
+                          Lưu Dữ Liệu
+                        </Button>
+                        <Button type="primary" danger size="small" disabled={formDisabled}>
+                          Hủy Bỏ
+                        </Button>
+                        <Button type="dashed" size='small' disabled={formDisabled}>
+                          Thêm Mới
+                        </Button>
+                        <Button type="text" size='small' disabled={formDisabled}>
+                          Chi tiết
+                        </Button>
+                        <Button type="link" size='small' disabled={formDisabled}>
+                          Đọc thêm
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </Form>
+                  <CustomTransfer
+                    label="Quyền hạn"
+                    name="permissions"
+                    disabled={formDisabled}
+                    dataSource={permissionOptions}
+                  />
+               </>
               )
             },
             {
@@ -373,7 +308,7 @@ const AppContent: React.FC = () => {
                     monthNotes={myMonthNotes} 
                     mode="month" 
                     fullscreen={true}
-                    onSelect={(date) => console.log('Đã chọn ngày:', date.format('YYYY-MM-DD'))}
+                    onSelect={(date) => console.log('Đã chọn ngày:', date.format('DD-MM-YYYY'))}
                   />
                   <div style={{ marginTop: 12 }}>
                     <CustomMiniCalendar
@@ -385,62 +320,62 @@ const AppContent: React.FC = () => {
                   </div>
                 </>
               )
+            },
+            {
+              key: '3',
+              label: 'Cấu hình nâng cao',
+              children: (
+                <>
+                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Modal & Popups</Title>
+                  <Space direction="horizontal" size="small" wrap style={{ width: '100%', justifyContent: 'flex-start' }}>
+                    <Button size="small" type="primary" onClick={() => setIsBaseOpen(true)}>
+                      Open Base Modal
+                    </Button>
+
+                    <Button size="small" type="primary" onClick={() => setIsFormOpen(true)}>
+                      Open Form Modal
+                    </Button>
+
+                    <Button size="small" type="primary" onClick={() => MessageBox.info('Đây là hộp thoại thông tin của hệ thống.', 'Thông tin')}>
+                      Show MessageBox.info
+                    </Button>
+
+                    <Button 
+                      size="small" type="primary" 
+                      onClick={() => {
+                        MessageBox.confirm(
+                          'Bạn có chắc chắn muốn thực hiện hành động này không?',
+                          'Xác nhận hệ thống',
+                          () => { message.success('Đã xác nhận thành công!'); },
+                          () => { console.log('Đã huỷ bỏ'); }
+                        );
+                      }}
+                    >
+                      Show MessageBox.confirm
+                    </Button>
+
+                    <CustomPopconfirm
+                      title="Xóa dữ liệu"
+                      description="Bạn có chắc chắn muốn xóa bản ghi này?"
+                      onConfirm={() => { message.success('Bản ghi đã được xóa.'); }}
+                    >
+                      <Button size="small" type="primary" danger>
+                        Custom Popconfirm
+                      </Button>
+                    </CustomPopconfirm>
+                  </Space>
+                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Step</Title>
+                  <StepCustom />
+                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ table</Title>
+                  <EmployeeList/>
+        
+                </>
+              )
             }
           ]}
         />
-        <CustomTransfer
-          label="Quyền hạn"
-          name="permissions"
-          disabled={formDisabled}
-          dataSource={[ 
-            { key: '1', title: 'Quyền xem báo cáo' },
-            { key: '2', title: 'Quyền sửa nhân viên' },
-            { key: '3', title: 'Quyền xóa nhân viên' },
-          ]}
-        />
-        <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Modal & Popups</Title>
         
-        <Space direction="horizontal" size="small" wrap style={{ width: '100%', justifyContent: 'flex-start' }}>
-          <Button size="small" onClick={() => setIsBaseOpen(true)}>
-            Open Base Modal
-          </Button>
-
-          <Button size="small" onClick={() => setIsFormOpen(true)}>
-            Open Form Modal
-          </Button>
-
-          <Button size="small" onClick={() => MessageBox.info('Đây là hộp thoại thông tin của hệ thống.', 'Thông tin')}>
-            Show MessageBox.info
-          </Button>
-
-          <Button 
-            size="small" 
-            onClick={() => {
-              MessageBox.confirm(
-                'Bạn có chắc chắn muốn thực hiện hành động này không?',
-                'Xác nhận hệ thống',
-                () => { MessageBox.success('Đã xác nhận thành công!'); },
-                () => { console.log('Đã huỷ bỏ'); }
-              );
-            }}
-          >
-            Show MessageBox.confirm
-          </Button>
-
-          <CustomPopconfirm
-            title="Xóa dữ liệu"
-            description="Bạn có chắc chắn muốn xóa bản ghi này?"
-            onConfirm={() => { MessageBox.success('Bản ghi đã được xóa.'); }}
-          >
-            <Button size="small" danger>
-              Custom Popconfirm
-            </Button>
-          </CustomPopconfirm>
-        </Space>
-        <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Step</Title>
-        <StepCustom />
-        <Title level={3} style={{ marginBottom: 16 }}>Test Bộ table</Title>
-        <EmployeeList/>
+        
       {/* Base Modal Test */}
       <BaseModal
         title="Base Modal Test"

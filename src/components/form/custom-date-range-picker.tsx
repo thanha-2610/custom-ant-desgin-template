@@ -10,6 +10,7 @@ interface CustomDateRangePickerProps extends Omit<RangePickerProps, 'name'> {
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
+  format?: string;
 }
 
 export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
@@ -18,6 +19,7 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
   required,
   labelWidth = 100,
   layout = 'horizontal',
+  format = 'DD-MM-YYYY',
   style,
   ...rest
 }) => {
@@ -46,7 +48,7 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
         }
       } : undefined}
     >
-      <RangePicker size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
+      <RangePicker format={format} size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
     </Form.Item>
   );
 };
