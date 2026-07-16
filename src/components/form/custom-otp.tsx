@@ -1,29 +1,27 @@
 import React from 'react';
-import { Form, DatePicker } from 'antd';
+import { Form, Input } from 'antd';
+import type { GetProps } from 'antd';
+ 
+type OTPProps = GetProps<typeof Input.OTP>;
 
-type DatePickerProps = React.ComponentProps<typeof DatePicker>;
-
-interface CustomDatePickerProps extends Omit<DatePickerProps, 'name'> {
+export interface CustomOTPProps extends Omit<OTPProps, 'name'> {
   label: string;
   name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
-  layout?: 'horizontal' | 'vertical';
   inputWidth?: number | string;
-  format?: string;
-  placeholder?: string;
+  layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+export const CustomOTP: React.FC<CustomOTPProps> = ({
   label,
   name,
   required,
   labelWidth = 100,
   layout = 'horizontal',
-  inputWidth = 170,
-  format = 'DD-MM-YYYY',
-  placeholder='Chọn ngày',
   style,
+  inputWidth = 170,
+  length = 6, 
   ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -33,19 +31,16 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required }]}
-      required={required}
-      help={null}
+      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
+      labelAlign="left"
       labelCol={isHorizontal ? {
         style: {
           width: widthStyle,
           flex: `0 0 ${widthStyle}`,
           maxWidth: widthStyle,
-          textAlign: 'right',
-          paddingRight: '8px',
-          whiteSpace: 'nowrap',
-          height: '18px',
+          paddingRight: '4px',
+          whiteSpace: 'nowrap'
         }
       } : undefined}
       wrapperCol={isHorizontal ? {
@@ -54,7 +49,12 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         }
       } : undefined}
     >
-      <DatePicker placeholder={placeholder} format={format} size="small" style={{ width: inputWidth, ...style, maxWidth: 192 }} {...rest} />
+      <Input.OTP 
+        size="small" // Kích thước nhỏ chuẩn Winform
+        length={length} 
+        style={{ ...style, width: inputWidth }} 
+        {...rest} 
+      />
     </Form.Item>
   );
 };

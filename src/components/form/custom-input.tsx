@@ -18,7 +18,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   labelWidth = 100,
   layout = 'horizontal',
   style,
-  inputWidth = 192,
+  inputWidth = 170,
   ...rest 
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -28,7 +28,9 @@ export const CustomInput: React.FC<CustomInputProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
+      rules={[{ required }]}
+      required={required}
+      help={null}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: { 
@@ -37,7 +39,8 @@ export const CustomInput: React.FC<CustomInputProps> = ({
           maxWidth: widthStyle,
           textAlign: 'right',
           paddingRight: '8px',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          height: '18px',
         }
       } : undefined}
       

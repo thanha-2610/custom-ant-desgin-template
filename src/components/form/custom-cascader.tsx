@@ -18,7 +18,7 @@ export const CustomCascader: React.FC<CustomCascaderProps> = ({
   placeholder = 'Vui lòng chọn...',
   layout = 'horizontal',
   labelWidth = 100,
-  inputWidth = 192,
+  inputWidth = 170,
   style,
   ...rest
 }) => {

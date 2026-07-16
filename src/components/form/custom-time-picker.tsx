@@ -23,7 +23,7 @@ export const CustomTimePicker: React.FC<CustomTimePickerProps> = ({
   placeholder = 'Chọn giờ...',
   layout = 'horizontal',
   labelWidth = 100,
-  inputWidth = 192,
+  inputWidth = 170,
   style,  
   ...rest
 }) => {

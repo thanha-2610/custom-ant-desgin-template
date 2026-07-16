@@ -1,28 +1,25 @@
 import React from 'react';
-import { Form, DatePicker } from 'antd';
+import { Form, Input } from 'antd';
+import type { PasswordProps } from 'antd/es/input';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
-type DatePickerProps = React.ComponentProps<typeof DatePicker>;
-
-interface CustomDatePickerProps extends Omit<DatePickerProps, 'name'> {
+export interface CustomPasswordProps extends Omit<PasswordProps, 'name'> {
   label: string;
   name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
-  layout?: 'horizontal' | 'vertical';
   inputWidth?: number | string;
-  format?: string;
-  placeholder?: string;
+  layout?: 'horizontal' | 'vertical';
 }
 
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+export const CustomPassword: React.FC<CustomPasswordProps> = ({
   label,
   name,
   required,
+  placeholder = 'Nhập mật khẩu...',
   labelWidth = 100,
-  layout = 'horizontal',
   inputWidth = 170,
-  format = 'DD-MM-YYYY',
-  placeholder='Chọn ngày',
+  layout = 'horizontal',
   style,
   ...rest
 }) => {
@@ -33,19 +30,16 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required }]}
-      required={required}
-      help={null}
+      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
+      labelAlign="left"
       labelCol={isHorizontal ? {
         style: {
           width: widthStyle,
           flex: `0 0 ${widthStyle}`,
           maxWidth: widthStyle,
-          textAlign: 'right',
           paddingRight: '8px',
-          whiteSpace: 'nowrap',
-          height: '18px',
+          whiteSpace: 'nowrap'
         }
       } : undefined}
       wrapperCol={isHorizontal ? {
@@ -54,7 +48,13 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         }
       } : undefined}
     >
-      <DatePicker placeholder={placeholder} format={format} size="small" style={{ width: inputWidth, ...style, maxWidth: 192 }} {...rest} />
+      <Input.Password
+        size="small"
+        placeholder={placeholder}
+        style={{ width: inputWidth, ...style }}
+        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        {...rest}
+      />
     </Form.Item>
   );
 };

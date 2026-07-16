@@ -17,7 +17,7 @@ export const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
   required,
   labelWidth = 100,
   layout = 'horizontal',
-  inputWidth = 192,
+  inputWidth = 170,
   style,
   ...rest
 }) => {

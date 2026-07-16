@@ -22,13 +22,9 @@ import { CustomPopconfirm } from './components/modal/custom-popconfirm';
 import { CustomUpload } from './components/form/custom-upload';
 import { CustomTextArea } from './components/form/custom-textarea';
 import { CustomLayout } from './components/layout/dashboard-layout-custom';
-import { EmployeeList } from './components/table/employee-list';
-import StepCustom from './components/step/step-custom';
-import { CustomTabs } from './components/tab/custom-tab';
-import { CustomTransfer } from './components/form/custom-transfer';
+import { CustomTabs } from './components/tab/custom-tab'; 
 import { CustomAutoComplete } from './components/form/custom-auto-complete';
-import { CustomFormRepeater } from './components/form/custom-form-repeater';
-import { CustomCalendar } from './components/calendar/custom-notice-calendar';
+import { CustomFormRepeater } from './components/form/custom-form-repeater'; 
 import { CustomMiniCalendar } from './components/calendar/custom-card-calendar';
 
 // Import data
@@ -39,15 +35,17 @@ import {
   selectOptions,
   cityOptions,
   genderOptions,
-  hobbyOptions,
-  permissionOptions,
-  myEvents,
-  myMonthNotes,
+  hobbyOptions, 
 } from './yummy_data';
+import { CustomPassword } from './components/form/custom-input-password';
+import { CustomOTP } from './components/form/custom-otp'; 
+import StepCustom from './components/step/step-custom';
+import { EmployeeList } from './components/table/employee-list';
 
 const { Title } = Typography;
 
 const AppContent: React.FC = () => {
+
   const [form] = Form.useForm();
   const [modalForm] = Form.useForm();
   
@@ -106,7 +104,7 @@ const AppContent: React.FC = () => {
           <span style={{ fontSize: 12, fontWeight: 500,  }}>Disable toàn bộ Form:</span>
           <Switch checked={formDisabled} onChange={setFormDisabled} size="small" />
         </Space>
-        
+     
         <CustomTabs
           size='small'
           items={[
@@ -121,6 +119,7 @@ const AppContent: React.FC = () => {
                     labelAlign="left" 
                     onFinish={handleFinish} 
                     disabled={formDisabled}
+                    style={{background: '#f6f3f4'}}
                   > 
                     <Row gutter={[2, 2]} justify="start">
                       <Col span={6}>
@@ -128,15 +127,15 @@ const AppContent: React.FC = () => {
                           label="Mã nhân viên" 
                           name="empCode" 
                           required 
-                          style={{ width: '100%' }} 
+                           
                         /> 
                       </Col>
                       <Col span={6}>
                         <CustomInput 
-                          label="Mã nhân viên" 
-                          name="empCode" 
+                          label="CCCD" 
+                          name="cccd" 
                           required 
-                          style={{ width: '100%' }}
+                          
                           prefix="￥" suffix="RMB" 
                         /> 
                       </Col>
@@ -156,7 +155,7 @@ const AppContent: React.FC = () => {
                           name="age"
                           required
                           type='number'
-                          style={{ width: '100%' }}
+                          
                         />
                       </Col>
                       
@@ -166,7 +165,6 @@ const AppContent: React.FC = () => {
                           name="status"
                           required
                           options={selectOptions}
-                          style={{ width: '100%' }}
                         />
                       </Col>
   
@@ -175,7 +173,6 @@ const AppContent: React.FC = () => {
                           label="Ngày sinh"
                           name="birthday"
                           required
-                          style={{ width: '100%' }}
                         />
                       </Col>
                       
@@ -184,15 +181,26 @@ const AppContent: React.FC = () => {
                           label="Thời gian làm"
                           name="workPeriod"
                           required
-                          style={{ width: '100%' }}
                         />
                       </Col>
-           
-                      <Col span={12}>
+                      <Col span={6}>
+                        <CustomPassword 
+                          label="Mật khẩu mới" 
+                          name="newPassword" 
+                          required  
+                        />
+                      </Col>
+                      <Col span={6}>
+                        <CustomOTP
+                          label="Mã xác thực" 
+                          name="otpCode" 
+                          required  
+                        />
+                      </Col>
+                      <Col span={6}>
                         <CustomTextArea
-                          label="Ghi chú nghiệp vụ Ghi chú nghiệp vụ" 
-                          name="notes" 
-                          inputWidth={"100%"}
+                          label="Ghi chú " 
+                          name="notes"  
                           maxLength={1000} 
                         />
                       </Col> 
@@ -230,9 +238,8 @@ const AppContent: React.FC = () => {
                           btnText="Browse..."
                         />
                       </Col>
-                       
-                       
-                      <Col span={18} style={{ marginTop: 12 }}>
+                        
+                      <Col span={8}>
                         <Title level={3} style={{ marginBottom: 8, }}>
                           Lịch sử công tác (Danh sách)
                         </Title>
@@ -289,27 +296,22 @@ const AppContent: React.FC = () => {
                       </Space>
                     </Form.Item>
                   </Form>
-                  <CustomTransfer
-                    label="Quyền hạn"
-                    name="permissions"
-                    disabled={formDisabled}
-                    dataSource={permissionOptions}
-                  />
+                  
                </>
               )
             },
             {
               key: '2',
-              label: 'Cấu hình nâng cao',
+              label: 'Cấu hình nâng cao 1',
               children: (
                 <>
-                  <CustomCalendar 
+                  {/* <CustomCalendar 
                     events={myEvents} 
                     monthNotes={myMonthNotes} 
                     mode="month" 
                     fullscreen={true}
                     onSelect={(date) => console.log('Đã chọn ngày:', date.format('DD-MM-YYYY'))}
-                  />
+                  /> */}
                   <div style={{ marginTop: 12 }}>
                     <CustomMiniCalendar
                       width={320}
@@ -323,10 +325,10 @@ const AppContent: React.FC = () => {
             },
             {
               key: '3',
-              label: 'Cấu hình nâng cao',
+              label: 'Cấu hình nâng cao 2',
               children: (
                 <>
-                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Modal & Popups</Title>
+                  <Title level={3}>Test Bộ Modal & Popups</Title>
                   <Space direction="horizontal" size="small" wrap style={{ width: '100%', justifyContent: 'flex-start' }}>
                     <Button size="small" type="primary" onClick={() => setIsBaseOpen(true)}>
                       Open Base Modal
@@ -364,14 +366,15 @@ const AppContent: React.FC = () => {
                       </Button>
                     </CustomPopconfirm>
                   </Space>
-                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ Step</Title>
+                  <Title level={3}>Test Bộ Step</Title>
                   <StepCustom />
-                  <Title level={3} style={{ marginBottom: 16 }}>Test Bộ table</Title>
+                  <Title level={3}>Test Bộ table</Title>
                   <EmployeeList/>
         
                 </>
               )
-            }
+            },
+             
           ]}
         />
         
@@ -427,7 +430,7 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <ConfigProvider theme={ultraCompactWinformTheme}>
+    <ConfigProvider theme={ultraCompactWinformTheme} componentSize="small">
       <AntdApp>
         <AppContent />
       </AntdApp>

@@ -43,7 +43,8 @@
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+     font: 13px/16px var(--sans); /* Đổi font-size mặc định thành 13px và line-height thành 16px */
+    }
 
   #social .button-icon {
     filter: invert(1) brightness(2);
@@ -127,10 +128,15 @@ code {
   flex-direction: column !important;
 }
 
+.ant-form-item .ant-form-item-control-input {
+  min-height: auto !important;
+}
+
+
 /* Custom Select Sizing & Dropdown Option Padding */
 .ant-select-sm .ant-select-selector {
-  height: 25px !important;
-  min-height: 25px !important;
+  height: 22px !important;
+  min-height: 22px !important;
   align-items: center !important;
 }
 
@@ -152,7 +158,13 @@ code {
 .ant-menu-item,
 .ant-menu-submenu-title {
   font-weight: bold !important;
+  padding: 1px 2px !important;
 }
+
+.ant-menu-title-content {
+  line-height: 18px !important;
+}
+
 
 /* Custom Light Top Menu styling for Dark Blue Header */
 .top-menu-custom.ant-menu-horizontal {
@@ -199,12 +211,22 @@ code {
   display: none !important;
 }
 
-/* Ép font-weight: 700 cho chữ của Tab đang được chọn (Dạng Card) */
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+.ant-tabs-tab-btn {
   font-weight: 700 !important;
 }
 
-/* Nếu bạn dùng cả dạng Line mặc định thì thêm dòng này */
-.ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-  font-weight: 700 !important;
+/* Color label text and required asterisk orange when Form.Item has a validation error */
+.ant-form-item-has-error .ant-form-item-label > label {
+  color: #f54a00 !important;
+}
+
+.ant-form-item-has-error .ant-form-item-required::before {
+  color: #f54a00 !important;
+}
+
+/* Hide all validation error message texts and collapse their heights */
+.ant-form-item-explain,
+.ant-form-item-explain-error,
+.ant-form-item-explain-connected {
+  display: none !important;
 }

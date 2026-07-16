@@ -44,7 +44,7 @@ export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
         }
       } : undefined}
     >
-      <Radio.Group size="small" {...rest} />
+      <Radio.Group size="small" {...rest}  style={{ fontSize: 13 }}/>
     </Form.Item>
   );
 };

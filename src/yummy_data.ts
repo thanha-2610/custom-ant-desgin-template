@@ -1,5 +1,4 @@
-import React from 'react';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import React from 'react'; 
 import type { CalendarEvent } from './components/calendar/custom-notice-calendar';
 
 // 1. Dữ liệu Top Menu
@@ -7,65 +6,71 @@ export const topMenuItems = [
   {
     key: '1',
     label: 'Hệ thống',
+    link: '#',
     children: [
-      { key: '1.1', label: 'Cấu hình kí số' },
+      { key: '1.1', label: 'Cấu hình kí số', link: '#' },
       {
         key: '1.2',
         label: 'Danh mục',
+        link: '#',
         children: [
-          { key: '1.2.1', label: 'Nghề nghiệp' },
-          { key: '1.2.2', label: 'Nhóm máu' },
-          { key: '1.2.3', label: 'Phân loại thể lực' },
-          { key: '1.2.4', label: 'Răng - Hàm - Mặt' },
-          { key: '1.2.5', label: 'Chỉ số xét nghiệm' },
+          { key: '1.2.1', label: 'Nghề nghiệp', link: '#' },
+          { key: '1.2.2', label: 'Nhóm máu', link: '#' },
+          { key: '1.2.3', label: 'Phân loại thể lực', link: '#' },
+          { key: '1.2.4', label: 'Răng - Hàm - Mặt', link: '#' },
+          { key: '1.2.5', label: 'Chỉ số xét nghiệm', link: '#' },
         ],
       },
       {
         key: '1.3',
         label: 'Phân quyền',
+        link: '#',
         children: [
-          { key: '1.3.1', label: 'Quản lý đơn vị' },
-          { key: '1.3.2', label: 'Quản lý đợt khám' },
-          { key: '1.3.3', label: 'Quản lý bệnh nhân' },
+          { key: '1.3.1', label: 'Quản lý đơn vị', link: '#' },
+          { key: '1.3.2', label: 'Quản lý đợt khám', link: '#' },
+          { key: '1.3.3', label: 'Quản lý bệnh nhân', link: '#' },
         ],
       },
-      { key: '1.4', label: 'Import dữ liệu' },
-      { key: '1.5', label: 'Xuất dữ liệu liên thông' },
-      { key: '1.6', label: 'Cấu hình kí số' },
+      { key: '1.4', label: 'Import dữ liệu', link: '#' },
+      { key: '1.5', label: 'Xuất dữ liệu liên thông', link: '#' },
+      { key: '1.6', label: 'Cấu hình kí số', link: '#' },
     ],
   },
   {
     key: '2',
     label: 'Nghiệp vụ',
+    link: '#',
     children: [
-      { key: '2.1', label: 'Khám sức khỏe' },
-      { key: '2.2', label: 'Phân quyền bác sĩ' },
+      { key: '2.1', label: 'Khám sức khỏe', link: '#' },
+      { key: '2.2', label: 'Phân quyền bác sĩ', link: '#' },
     ],
   },
   {
     key: '3',
     label: 'Trợ giúp',
+    link: '#',
   },
 ];
 
 // 2. Dữ liệu Menu dọc
-export const sideMenuItems = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `Danh mục ${key}`,
-    children: Array.from({ length: 3 }).map((_, j) => {
-      const subKey = index * 3 + j + 1;
-      return {
-        key: subKey,
-        label: `Màn hình ${subKey}`,
-      };
-    }),
-  };
-});
+export const sideMenuItems = [
+  {
+    key: '1', 
+    label: 'Danh mục 1',
+    children: [
+      {
+        key: '1.1', 
+        label: 'Danh mục  1.1', 
+      }, 
+      {key: 'Danh mục 1.2', label: 'Danh mục 1.2'}
+    ]
+  },
+  {key: 'Danh mục 2', label: 'Danh mục 2'},
+  {key: 'Danh mục 3', label: 'Danh mục 3'},
 
-// 3. Đường dẫn Breadcrumb
+];
+
+// 3. Đường dẫn Breadcrumb  
 export const breadcrumbs = [
   { title: 'Trang chủ' },
   { title: 'Danh mục 1' },
