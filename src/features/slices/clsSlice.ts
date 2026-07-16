@@ -15,7 +15,7 @@ const clsSlice = createSlice({
   name: 'quanLyCLS',
   initialState,
   reducers: {
-    searchPatient: (state, action: PayloadAction<any>) => {
+    searchPatient: (state) => {
       state.loadingPatient = true;
     },
     fetchPatientSuccess: (state, action: PayloadAction<Patient[]>) => {
