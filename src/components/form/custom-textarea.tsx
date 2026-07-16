@@ -22,7 +22,7 @@ export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
   layout = 'horizontal',
   labelWidth = 100,
   maxContent = 6,
-  inputWidth = 192,
+  inputWidth = 170,
   ...rest
 }) => {
   const isHorizontal = layout === 'horizontal';
@@ -51,7 +51,7 @@ export const CustomTextArea: React.FC<CustomTextAreaProps> = ({
         rows={1}
         showCount
         maxLength={maxContent}
-        style={{ fontSize: 11, width: inputWidth }} 
+        style={{  width: inputWidth }} 
         {...rest}
       />
     </Form.Item>

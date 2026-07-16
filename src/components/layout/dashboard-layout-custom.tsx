@@ -32,6 +32,23 @@ export interface CustomLayoutProps {
   breadcrumbItems?: BreadcrumbProps['items'];
 }
 
+const mapMenuItems = (items: any[]): any[] => {
+  return items.map(item => {
+    if (!item) return item;
+    const newItem = { ...item };
+    if (item.children) {
+      newItem.children = mapMenuItems(item.children);
+    } else if (item.link) {
+      newItem.label = (
+        <a href={item.link}>
+          {item.label}
+        </a>
+      );
+    }
+    return newItem;
+  });
+};
+
 export const CustomLayout: React.FC<CustomLayoutProps> = ({
   children,
   logo,
@@ -68,7 +85,7 @@ export const CustomLayout: React.FC<CustomLayoutProps> = ({
             mode="horizontal"
             defaultSelectedKeys={topMenu.defaultSelectedKeys}
             onClick={topMenu.onClick}
-            items={topMenu.items}
+            items={mapMenuItems(topMenu.items)}
             className="top-menu-custom"
             style={{ flex: 1, minWidth: 0, borderBottom: 'none' }}
           />
@@ -97,7 +114,7 @@ export const CustomLayout: React.FC<CustomLayoutProps> = ({
         {/* SIDEBAR */}
         {sideMenu?.items && (
           <Sider 
-            width={220} 
+            width={140} 
             collapsible 
             collapsed={collapsed} 
             collapsedWidth={0}
@@ -121,7 +138,7 @@ export const CustomLayout: React.FC<CustomLayoutProps> = ({
           {breadcrumbItems && breadcrumbItems.length > 0 && (
             <Breadcrumb
               items={breadcrumbItems}
-              style={{ margin: '8px 0' }}
+              style={{ margin: '4px 0' }}
             />
           )}
           

@@ -20,7 +20,7 @@ export const CustomFormRepeater: React.FC<CustomFormRepeaterProps> = ({
   return (
     <Form.List name={name}>
       {(fields, { add, remove }) => (
-        <div style={{ display: 'flex', flexDirection: 'column', rowGap: variant === 'card' ? 16 : 8 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', rowGap: variant === 'card' ? 8 : 8 }}>
           {fields.map((field, index) => {
             if (variant === 'card') {
               return (
@@ -51,6 +51,7 @@ export const CustomFormRepeater: React.FC<CustomFormRepeaterProps> = ({
                   type="text"
                   danger
                   icon={<CloseOutlined />}
+                  size="small"
                   onClick={() => remove(field.name)}
                 />
               </Space>
@@ -60,6 +61,7 @@ export const CustomFormRepeater: React.FC<CustomFormRepeaterProps> = ({
           <Button 
             type="dashed" 
             onClick={() => add()} 
+            size="small"
             block 
             icon={<PlusOutlined />}
             style={{ borderColor: '#1890ff', color: '#1890ff' }}

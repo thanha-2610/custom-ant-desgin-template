@@ -4,12 +4,14 @@ import { Form, DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 type RangePickerProps = React.ComponentProps<typeof RangePicker>;
 
-interface CustomDateRangePickerProps extends Omit<RangePickerProps, 'name'> {
+interface CustomDateRangePickerProps extends Omit<RangePickerProps, 'name' | 'placeholder'> {
   label: string;
   name?: string | number | (string | number)[];
   required?: boolean;
   labelWidth?: number | string;
   layout?: 'horizontal' | 'vertical';
+  inputWidth?: number | string;
+  placeholder?: [string, string];
   format?: string;
 }
 
@@ -20,6 +22,8 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
   labelWidth = 100,
   layout = 'horizontal',
   format = 'DD-MM-YYYY',
+  placeholder = ['Từ ngày', 'Đến ngày'],
+  inputWidth = 170,
   style,
   ...rest
 }) => {
@@ -30,7 +34,9 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng chọn ${label.toLowerCase()}` }]}
+      rules={[{ required }]}
+      required={required}
+      help={null}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
@@ -39,7 +45,8 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
           maxWidth: widthStyle,
           textAlign: 'right',
           paddingRight: '8px',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          height: '18px',
         }
       } : undefined}
       wrapperCol={isHorizontal ? { 
@@ -48,7 +55,8 @@ export const CustomDateRangePicker: React.FC<CustomDateRangePickerProps> = ({
         }
       } : undefined}
     >
-      <RangePicker format={format} size="small" style={{ width: '100%', ...style, maxWidth: 192 }} {...rest} />
+      <RangePicker placeholder={placeholder} format={format} size="small" style={{ width: inputWidth, ...style, maxWidth: 192 }} {...rest} />
     </Form.Item>
   );
 };
+

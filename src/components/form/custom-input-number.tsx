@@ -18,7 +18,7 @@ export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   required,
   labelWidth = 100,
   layout = 'horizontal',
-  inputWidth = 192,
+  inputWidth = 170,
   style,
   ...rest
 }) => {
@@ -29,15 +29,19 @@ export const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
     <Form.Item
       label={label}
       name={name}
-      rules={[{ required, message: `Vui lòng nhập ${label.toLowerCase()}` }]}
+      rules={[{ required }]}
+      required={required}
+      help={null}
       className={isHorizontal ? 'custom-horizontal-item' : undefined}
       labelCol={isHorizontal ? {
         style: {
           width: widthStyle,
           flex: `0 0 ${widthStyle}`,
-          maxWidth: widthStyle, 
+          maxWidth: widthStyle,
+          textAlign: 'right',
           paddingRight: '8px',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          height: '18px',
         }
       } : undefined}
       wrapperCol={isHorizontal ? {

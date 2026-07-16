@@ -18,7 +18,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   required,
   labelWidth = 100,
   layout = 'horizontal',
-  inputWidth = 192,
+  inputWidth = 170,
   style,
   ...rest
 }) => {

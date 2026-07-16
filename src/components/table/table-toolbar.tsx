@@ -28,7 +28,7 @@ export const TableToolbar: React.FC<TableToolbarProps> = ({
       display: 'flex', 
       justifyContent: 'space-between', 
       alignItems: 'center', 
-      padding: '8px',
+      paddingBottom: '8px',
     }}>
       <Title level={5} style={{ margin: 0, color: '#0072BC', fontSize: "13px" }}>{title}</Title>
       
