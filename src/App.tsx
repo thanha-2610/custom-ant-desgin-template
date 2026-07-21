@@ -215,13 +215,13 @@ const AppContent: React.FC = () => {
                           required
                         />
                       </Col>
-                      <Col span={6}>
+                      {/* <Col span={6}>
                         <CustomOTP
                           label="Mã xác thực"
                           name="otpCode"
                           required
                         />
-                      </Col>
+                      </Col> */}
                       <Col span={6}>
                         <CustomTextArea
                           label="Ghi chú "
