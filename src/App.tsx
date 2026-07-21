@@ -10,7 +10,7 @@ import {
   Col,
   Switch,
 } from "antd";
-import type { Dayjs } from "dayjs";
+// import type { Dayjs } from "dayjs";
 
 import { ultraCompactWinformTheme } from "./theme/themeConfig";
 
@@ -35,7 +35,6 @@ import { CustomLayout } from "./components/layout/dashboard-layout-custom";
 import { CustomTabs } from "./components/tab/custom-tab";
 import { CustomAutoComplete } from "./components/form/custom-auto-complete";
 import { CustomFormRepeater } from "./components/form/custom-form-repeater";
-import { CustomMiniCalendar } from "./components/calendar/custom-card-calendar";
 
 // Import data
 import {
@@ -48,8 +47,8 @@ import {
   hobbyOptions,
 } from "./yummy_data";
 import { CustomPassword } from "./components/form/custom-input-password";
-import { CustomOTP } from "./components/form/custom-otp";
-import StepCustom from "./components/step/step-custom";
+// import { CustomOTP } from "./components/form/custom-otp";
+// import StepCustom from "./components/step/step-custom";
 import { EmployeeList } from "./components/table/employee-list";
 
 const { Title } = Typography;
@@ -83,18 +82,18 @@ const AppContent: React.FC = () => {
     modalForm.resetFields();
   };
 
-  const handlePanelChange = (value: Dayjs, mode: string) => {
-    console.log(
-      "Tháng/Năm thay đổi:",
-      value.format("DD-MM-YYYY"),
-      "Chế độ:",
-      mode,
-    );
-  };
+  // const handlePanelChange = (value: Dayjs, mode: string) => {
+  //   console.log(
+  //     "Tháng/Năm thay đổi:",
+  //     value.format("DD-MM-YYYY"),
+  //     "Chế độ:",
+  //     mode,
+  //   );
+  // };
 
-  const handleSelect = (date: Dayjs) => {
-    console.log("Bạn vừa click vào ngày:", date.format("DD-MM-YYYY"));
-  };
+  // const handleSelect = (date: Dayjs) => {
+  //   console.log("Bạn vừa click vào ngày:", date.format("DD-MM-YYYY"));
+  // };
 
   return (
     <CustomLayout
