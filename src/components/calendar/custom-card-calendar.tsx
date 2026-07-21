@@ -1,10 +1,10 @@
-import React from 'react';
-import { Calendar, theme, ConfigProvider } from 'antd';
-import type { CalendarProps } from 'antd';
-import type { Dayjs } from 'dayjs';
-import { customMiniViVN, extendsDayJs } from './type-ViVN';
+import React from "react";
+import { Calendar, theme, ConfigProvider } from "antd";
+import type { CalendarProps } from "antd";
+import type { Dayjs } from "dayjs";
+import { customMiniViVN, extendsDayJs } from "./type-ViVN";
 
-extendsDayJs(); 
+extendsDayJs();
 
 export interface CustomMiniCalendarProps extends CalendarProps<Dayjs> {
   width?: number | string;
@@ -20,14 +20,14 @@ export const CustomMiniCalendar: React.FC<CustomMiniCalendarProps> = ({
 }) => {
   const { token } = theme.useToken();
 
-const wrapperStyle = {
+  const wrapperStyle = {
     width: width,
-    border: bordered ? `1px solid ${token.colorBorderSecondary}` : 'none',
+    border: bordered ? `1px solid ${token.colorBorderSecondary}` : "none",
     borderRadius: 4,
     background: token.colorBgContainer,
-    overflow: 'hidden',
+    overflow: "hidden",
     // 💡 Tiêm biến CSS nội bộ của Ant Design vào đây
-    '--ant-calendar-cell-width': '20px',
+    "--ant-calendar-cell-width": "20px",
     ...style,
   } as React.CSSProperties; // Ép kiểu để TypeScript không báo lỗi với Custom Variable
 
@@ -46,11 +46,7 @@ const wrapperStyle = {
         }
       `}</style>
       <ConfigProvider locale={customMiniViVN}>
-        <Calendar 
-          fullscreen={false} 
-          onPanelChange={onPanelChange} 
-          {...rest} 
-        />
+        <Calendar fullscreen={false} onPanelChange={onPanelChange} {...rest} />
       </ConfigProvider>
     </div>
   );
